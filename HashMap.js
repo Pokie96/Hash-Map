@@ -34,6 +34,7 @@ export class HashMap{
         const primeNumber = 31;
         for (let i = 0; i < key.length; i++) {
             hashCode = primeNumber * hashCode + key.charCodeAt(i);
+            hashCode = hashCode % this.capacity;
         }
 
         return hashCode;
@@ -44,24 +45,47 @@ export class HashMap{
 
         let node = new Node(key, value)
         let hashCode = this.hash(key);
-        let scaledHash = hashCode % this.capacity;
+        console.log(node.getKey() + " " + hashCode)
+
+
+        if(this.has(key)){
+            if(this.get(key).key === key){
+                this.get(key).value = value;
+            }
+
+            let currentNode = this.buckets[hashCode];    
+            while(currentNode.next !== null){
+                let nextNode = currentNode.next;
+                if(nextNode.key === key){
+                    nextNode.value = value;
+                    return;
+                }
+                currentNode = nextNode;
+            }
+            currentNode.setNext(node);
+        } else{
+            this.buckets[hashCode] = node;
+        }
         
-        
-        this.buckets[scaledHash] = node;
 
         this.increaseEntries();
     }
 
     has(key){
         let hashCode = this.hash(key);
-        let scaledHash = hashCode % this.capacity;
+        let selectedNode = this.buckets[hashCode];
+        
 
-        if(this.buckets[scaledHash].key === key){
+        if(selectedNode !== null && selectedNode !== undefined){
             return true;
-        } else{
-            return false;
         }
+        return false;
     }
 
-
+    get(key){
+        if(this.has(key)){
+            let hashCode = this.hash(key);
+            return this.buckets[hashCode];
+        }
+    }
 }
