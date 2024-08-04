@@ -1,4 +1,4 @@
-class Node{
+export class Node{
     constructor(key = null, value = null, next = null){
         this.key = key;
         this.value = value;
