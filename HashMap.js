@@ -196,7 +196,7 @@ export class HashMap{
      * Returns an array of the keys contained in the HashMap
      * @returns An array containing all of the keys in the HashMap
      */
-    keys(){
+    getKeys(){
         let keys = []
         for(let bucket of this.buckets){
             if(bucket !== null && bucket !== undefined){
@@ -215,7 +215,7 @@ export class HashMap{
      * Returns an array of the values contained in the HashMap
      * @returns An array containing all of the values in the HashMap
      */
-    values(){
+    getValues(){
         let values = [];
         for(let bucket of this.buckets){
             if(bucket !== null && bucket !== undefined){
@@ -230,5 +230,16 @@ export class HashMap{
         return values;
     }
 
-    
+    getEntries(){
+        let entries = [];
+        const keys = this.getKeys();
+        const values = this.getValues();
+        for(let i = 0; i < keys.length; i++){
+            let keyValuePair = []
+            keyValuePair.push(keys[i]);
+            keyValuePair.push(values[i]);
+            entries.push(keyValuePair);
+        }
+        return entries;
+    }
 }

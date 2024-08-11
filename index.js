@@ -1,39 +1,22 @@
 import { HashMap } from "./HashMap.js";
 
-let test = new HashMap();
+const test = new HashMap()
 
-test.set("Adam", "Christie");
-// test.set("Billy", "Butcher");
-// test.set("Carmin", "Winston");
-// test.set("Abbie", "Collins");
-// test.set("Jake", "Daley");
-// test.set("Kev", "Smith");
-// test.set("Kolin", "Holme");
-// test.set("Whitney", "Housten");
-// test.set("Debbie", "Dooley");
-// test.set("Jesus", "Christ");
-// test.set("Mohammed", "Ali");
-// test.set("Geralt", "Rivia");
-test.set("Rick", "Grimes");
-test.set("Home", "Lander");
-test.set("Rick", "Poop");
-test.set("Rick", "Lad");
-test.set("Adam", "Bro")
-test.set("Adam", "Christie");
-// test.set("Bobby", "White");
-// test.set("Jason", "Bourne");
-// test.set("Bobby", "Black");
-test.set("Sam", "Roberts");
-test.set("John", "Wick");
-test.set("Jimmy", "James");
+ test.set('apple', 'red')
+ test.set('banana', 'yellow')
+ test.set('carrot', 'orange')
+ test.set('dog', 'brown')
+ test.set('elephant', 'gray')
+ test.set('frog', 'green')
+ test.set('grape', 'purple')
+ test.set('hat', 'black')
+ test.set('ice cream', 'white')
+ test.set('jacket', 'blue')
+ test.set('kite', 'pink')
+ test.set('lion', 'golden')
+ test.set("hat", "white")
+ test.set("ice cream", "blue")
+ test.set('moon', 'silver')
 
-
-// console.log(test.remove("Adam"));
-// console.log(test.remove("Rick"));
-// console.log(test.remove("Home"));
-// console.log(test.has("Home"));
-// console.log(test.get("Rick"))
-//console.log(test.buckets[15].head);
-console.log(test.length());
-console.log(test.keys());
-console.log(test.values());
+ console.log(test.getEntries())
+ console.log(test.capacity)
