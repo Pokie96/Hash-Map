@@ -2,30 +2,47 @@
 import { LinkedList } from "./LinkedList.js";
 
 export class HashMap{
-
+    //Properties:
     #loadFactor = 0.75;
     capacity = 16;
     entries = 0
     buckets;
 
+    /**
+     * Creates a new HashMap object with an empty array of buckets.
+     */
     constructor(){
         this.buckets = [];
     }
 
+    /**
+     * Throws an Error when trying to access an index of the buckets array 
+     * thats less than 0 or greater than the length of the array.
+     */
     outOfBounds(){
         if (index < 0 || index >= buckets.length) {
             throw new Error("Trying to access index out of bound");
         }
     }
 
+    /**
+     * Increases the entries property by 1.
+     */
     increaseEntries(){
         this.entries++ ;
     }
 
+    /**
+     * Increases the capacity of the buckets array by multiplying it by 2.
+     */
     increaseCapacity(){
         this.capacity = this.capacity * 2;
     }
 
+    /**
+     * Rehashes the older buckets into the now empty buckets array when the
+     * capacity is increased as their hash numbers will now be different
+     */
     rehashOld(){
         const oldBuckets = this.buckets;
         this.buckets = [];
@@ -40,6 +57,11 @@ export class HashMap{
         }
     }
 
+    /**
+     * Hash creates a hashcode using the given key from the node.
+     * @param {*} key - The key of the node for which we want to create a hashcode. 
+     * @returns A hashcode for the node.
+     */
     hash(key){
         let hashCode = 0;
       
@@ -52,6 +74,13 @@ export class HashMap{
         return hashCode;
     }
 
+    /**
+     * Set adds a key, value pair (node) to the HashMap
+     * @param {*} key - The key for the node we want to add to the HashMap
+     * @param {*} value - The value of the node we want to add to the HashMap
+     * @param {boolean} rehash - True if node being added to the HashMap is 
+     * a rehash stopping the entry count from being increased. False otherwise.
+     */
     set(key, value, rehash = false){
         let hashCode = this.hash(key);
 
@@ -78,12 +107,19 @@ export class HashMap{
             this.increaseEntries();
         }
         
-        if(this.entries / this.capacity > 0.75){
+        if(this.entries / this.capacity > this.#loadFactor){
             this.increaseCapacity();
             this.rehashOld();
         }
     }
 
+
+    /**
+     * Has returns true or false based on whether a given key is contained in 
+     * the HashMap or not.
+     * @param {*} key - What we want to see exists or not. 
+     * @returns true if the key does exist in the HashMap. false otherwise.
+     */
     has(key){
         let hashCode = this.hash(key);
         let selectedBucket = this.buckets[hashCode];
@@ -97,6 +133,11 @@ export class HashMap{
         return false;
     }
 
+    /**
+     * Get returns the value attached to a given key
+     * @param {*} key - Key of the value we want to return
+     * @returns the value of the key value pair.
+     */
     get(key){
         if(this.has(key)){
             let currentBucket = this.buckets[this.hash(key)];
