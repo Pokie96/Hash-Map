@@ -1,4 +1,5 @@
-import { Node } from "./Node.js"
+
+import { LinkedList } from "./LinkedList.js";
 
 export class HashMap{
 
@@ -43,49 +44,52 @@ export class HashMap{
     set(key, value){
         this.increaseCapacity();
 
-        let node = new Node(key, value)
         let hashCode = this.hash(key);
-        console.log(node.getKey() + " " + hashCode)
 
+        //If bucket does not already exist create a new bucket
+        if(this.buckets[hashCode] === null || this.buckets[hashCode] === undefined){
+            let newBucket = new LinkedList();
+            newBucket.append(key, value);
+            this.buckets[hashCode] = newBucket;
 
-        if(this.has(key)){
-            if(this.get(key).key === key){
-                this.get(key).value = value;
-            }
-
-            let currentNode = this.buckets[hashCode];    
-            while(currentNode.next !== null){
-                let nextNode = currentNode.next;
-                if(nextNode.key === key){
-                    nextNode.value = value;
-                    return;
-                }
-                currentNode = nextNode;
-            }
-            currentNode.setNext(node);
         } else{
-            this.buckets[hashCode] = node;
+            let currentBucket = this.buckets[hashCode];
+
+            if(currentBucket.hasKey(key)){
+                let nodeIndex = currentBucket.findKeyIndex(key);
+                let node = currentBucket.at(nodeIndex);
+                node.setValue(value);
+            } else{
+                currentBucket.append(key, value);
+            }
         }
-        
 
         this.increaseEntries();
     }
 
     has(key){
         let hashCode = this.hash(key);
-        let selectedNode = this.buckets[hashCode];
+        let selectedBucket = this.buckets[hashCode];
         
 
-        if(selectedNode !== null && selectedNode !== undefined){
-            return true;
+        if(selectedBucket !== null && selectedBucket !== undefined){
+            if(selectedBucket.hasKey(key)){
+                return true;
+            }
         }
         return false;
     }
 
     get(key){
         if(this.has(key)){
-            let hashCode = this.hash(key);
-            return this.buckets[hashCode];
+            let currentBucket = this.buckets[this.hash(key)];
+            if(currentBucket.hasKey(key)){
+                let keyIndex = currentBucket.findKeyIndex(key);
+                return currentBucket.at(keyIndex).value;
+            }
+            
+
         }
+        return null;
     }
 }
