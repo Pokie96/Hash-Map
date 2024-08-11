@@ -167,4 +167,22 @@ export class HashMap{
         }
         return false;
     }
+
+    /**
+     * Length returns the number of stored keys in the HashMap
+     * @returns The total number of stored keys in the HashMap
+     */
+    length(){
+        let total = 0;
+        for(let bucket of this.buckets){
+            if(bucket !== null && bucket !== undefined){
+                let currentNode = bucket.getHead();
+                while(currentNode){
+                    total++
+                    currentNode = currentNode.next;
+                }
+            }
+        }
+        return total;
+    }
 }

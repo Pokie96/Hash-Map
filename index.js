@@ -16,22 +16,23 @@ test.set("Adam", "Christie");
 // test.set("Geralt", "Rivia");
 test.set("Rick", "Grimes");
 test.set("Home", "Lander");
-// test.set("Rick", "Poop");
-// test.set("Rick", "Lad");
-// test.set("Adam", "Bro")
-// test.set("Adam", "Christie");
-// test.set("Bobby", "White");
-// test.set("Jason", "Bourne");
-// test.set("Bobby", "Black");
-// test.set("Sam", "Roberts");
-// test.set("John", "Wick");
-// test.set("Jimmy", "James");
+test.set("Rick", "Poop");
+test.set("Rick", "Lad");
+test.set("Adam", "Bro")
+test.set("Adam", "Christie");
+test.set("Bobby", "White");
+test.set("Jason", "Bourne");
+test.set("Bobby", "Black");
+test.set("Sam", "Roberts");
+test.set("John", "Wick");
+test.set("Jimmy", "James");
 
 
-console.log(test.remove("Adam"));
-console.log(test.remove("Rick"));
-console.log(test.remove("Home"));
+// console.log(test.remove("Adam"));
+// console.log(test.remove("Rick"));
+// console.log(test.remove("Home"));
 // console.log(test.has("Home"));
 // console.log(test.get("Rick"))
 console.log(test.buckets);
+console.log(test.length());
 
