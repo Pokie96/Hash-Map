@@ -23,11 +23,22 @@ export class HashMap{
     }
 
     increaseCapacity(){
-        if(this.entries / this.capacity > this.#loadFactor){
-            this.capacity = this.capacity * 2;
-        }
+        this.capacity = this.capacity * 2;
     }
 
+    rehashOld(){
+        const oldBuckets = this.buckets;
+        this.buckets = [];
+        for(let bucket of oldBuckets){
+            if(bucket !== undefined && bucket !== null){
+                let currentNode = bucket.head;
+                while(currentNode){
+                    this.set(currentNode.getKey(), currentNode.getValue(), true);
+                    currentNode = currentNode.next;
+                }
+            }
+        }
+    }
 
     hash(key){
         let hashCode = 0;
@@ -41,10 +52,10 @@ export class HashMap{
         return hashCode;
     }
 
-    set(key, value){
-        this.increaseCapacity();
-
+    set(key, value, rehash = false){
         let hashCode = this.hash(key);
+
+        console.log(key + " " + value + " " + hashCode);
 
         //If bucket does not already exist create a new bucket
         if(this.buckets[hashCode] === null || this.buckets[hashCode] === undefined){
@@ -63,8 +74,14 @@ export class HashMap{
                 currentBucket.append(key, value);
             }
         }
-
-        this.increaseEntries();
+        if(!rehash){
+            this.increaseEntries();
+        }
+        
+        if(this.entries / this.capacity > 0.75){
+            this.increaseCapacity();
+            this.rehashOld();
+        }
     }
 
     has(key){
