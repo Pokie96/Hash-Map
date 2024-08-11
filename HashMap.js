@@ -84,8 +84,6 @@ export class HashMap{
     set(key, value, rehash = false){
         let hashCode = this.hash(key);
 
-        console.log(key + " " + value + " " + hashCode);
-
         //If bucket does not already exist create a new bucket
         if(this.buckets[hashCode] === null || this.buckets[hashCode] === undefined){
             let newBucket = new LinkedList();
@@ -149,5 +147,24 @@ export class HashMap{
 
         }
         return null;
+    }
+
+    /**
+     * Remove removes the key's node from the HashMap.
+     * @param {*} key - The key of the node that we want to remove 
+     * @returns true if successfully removed the key. False otherwise.
+     */
+    remove(key){
+        if(this.has(key)){
+            const hashCode = this.hash(key);
+            let currentBucket = this.buckets[hashCode];
+            let keyIndex = currentBucket.findKeyIndex(key);
+            currentBucket.removeAt(keyIndex);
+            if(currentBucket.head === null){
+                this.buckets.splice(hashCode, 1);
+            }
+            return true;
+        }
+        return false;
     }
 }

@@ -219,8 +219,19 @@ export class LinkedList{
     }
 
     removeAt(index){
-        let previous = this.at(index - 1);
-        let next = this.at(index + 1);
-        previous.setNext(next);
+        const current = this.at(index);
+        const next = this.at(index + 1);
+        let previous;
+        if(current === this.head){
+            this.head = next;
+        } else{
+            previous = this.at(index - 1);
+            previous.setNext(next);
+        }
+        
+        if(current === this.tail){
+            this.tail = previous;
+        }
+        
     }
 }
