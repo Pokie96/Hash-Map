@@ -210,4 +210,25 @@ export class HashMap{
         }
         return keys;
     }
+
+    /**
+     * Returns an array of the values contained in the HashMap
+     * @returns An array containing all of the values in the HashMap
+     */
+    values(){
+        let values = [];
+        for(let bucket of this.buckets){
+            if(bucket !== null && bucket !== undefined){
+                let currentNode = bucket.getHead();
+                while(currentNode){
+                    let currentValue = currentNode.getValue();
+                    values.push(currentValue)
+                    currentNode = currentNode.next
+                }
+            }
+        }
+        return values;
+    }
+
+    
 }

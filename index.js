@@ -36,4 +36,4 @@ test.set("Jimmy", "James");
 //console.log(test.buckets[15].head);
 console.log(test.length());
 console.log(test.keys());
-
+console.log(test.values());
