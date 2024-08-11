@@ -191,4 +191,23 @@ export class HashMap{
     clear(){
         this.buckets = [];
     }
+
+    /**
+     * Returns an array of the keys contained in the HashMap
+     * @returns An array containing all of the keys in the HashMap
+     */
+    keys(){
+        let keys = []
+        for(let bucket of this.buckets){
+            if(bucket !== null && bucket !== undefined){
+                let currentNode = bucket.getHead();
+                while(currentNode){
+                    let currentKey = currentNode.getKey();
+                    keys.push(currentKey)
+                    currentNode = currentNode.next
+                }
+            }
+        }
+        return keys;
+    }
 }

@@ -33,7 +33,7 @@ test.set("Jimmy", "James");
 // console.log(test.remove("Home"));
 // console.log(test.has("Home"));
 // console.log(test.get("Rick"))
-console.log(test.buckets[15].head);
-//console.log(test.length());
-test.clear();
+//console.log(test.buckets[15].head);
+console.log(test.length());
+console.log(test.keys());
 
